@@ -1,17 +1,15 @@
 package nz.co.airlines.flights.model.web;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
+import nz.co.airlines.flights.model.Flight;
 import nz.co.airlines.flights.model.FlightRepository;
-import nz.co.airlines.flights.model.Route;
 import nz.co.airlines.flights.model.RouteRepository;
 
 @RequestMapping("/flights")
@@ -26,12 +24,13 @@ public class FlightsResource {
     private final FlightRepository flightRespostory;
 
     @GetMapping(value = "/")
-    public List<Route> findAll() {
-        return routeRepository.findAll();
+    public List<Flight> findAll() {
+        return flightRespostory.findAll();
     }
     
-//    @GetMapping(value = "/{flightnum}")
-//    public Optional<Route> findFlight(@PathVariable("flightnum") int flightnum) {
-//        return routeRepostory.findAll(flightnum);
+//    @GetMapping(value = "/")
+//    public List<Route> findAll() {
+//        return routeRepository.findAll();
 //    }
+    
 }

@@ -14,6 +14,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.core.style.ToStringCreator;
+
 @Entity
 @Table(name = "flight")
 public class Flight {
@@ -49,8 +51,17 @@ public class Flight {
         return departureDate;
     }
     
-    public Date getDetaptureTime() {
+    public Date getDepartureTime() {
         return departureTime;
     }
     
+    @Override
+    public String toString() {
+        return new ToStringCreator(this)
+                .append("id", this.getId())
+                .append("route", this.getRoute())
+                .append("departure_date", this.getDepartureDate())
+                .append("departure_time", this.getDepartureTime())
+                .toString();
+    }
 }

@@ -1,7 +1,11 @@
 package nz.co.airlines.flights.model;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -19,6 +23,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import org.springframework.beans.support.MutableSortDefinition;
+import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
 
 @Entity
@@ -65,7 +71,7 @@ public class Route {
         return flightNumber;
     }
 
-    public Date getDepartureTime() {
+    public Date getScheduledDepartureTime() {
         return scheduledDepartureTime;
     }
 
@@ -81,33 +87,32 @@ public class Route {
         return destination;
     }
     
-//    protected Set<Flight> getFlightsInternal() {
-//        if (this.flights == null) {
-//            this.flights = new HashSet<>();
-//        }
-//        return this.flights;
-//    }
-//    
-//    public List<Flight> getFlights() {
-//        final List<Flight> sortedFlights = new ArrayList<>();
-//        PropertyComparator.sort(sortedFlights, new MutableSortDefinition("departureDate", true, true));
-//        return Collections.unmodifiableList(sortedFlights);
-//    }
-//    
-//    public void addFlight(Flight flight) {
-//        getFlightsInternal().add(flight);
-//    }
+    protected Set<Flight> getFlightsInternal() {
+        if (this.flights == null) {
+            this.flights = new HashSet<>();
+        }
+        return this.flights;
+    }
+    
+    public List<Flight> getFlights() {
+        final List<Flight> sortedFlights = new ArrayList<>();
+        PropertyComparator.sort(sortedFlights, new MutableSortDefinition("departureDate", true, true));
+        return Collections.unmodifiableList(sortedFlights);
+    }
+    
+    public void addFlight(Flight flight) {
+        getFlightsInternal().add(flight);
+    }
     
     @Override
     public String toString() {
         return new ToStringCreator(this)
                 .append("id", this.getId())
                 .append("flight_number", this.getFlightNumber())
-                .append("departure_time", this.getDepartureTime())
+                .append("departure_time", this.getScheduledDepartureTime())
                 .append("operator", this.getOperator())
                 .append("origin", this.getOrigin())
                 .append("destination", this.getDestination())
                 .toString();
     }
-    
 }
