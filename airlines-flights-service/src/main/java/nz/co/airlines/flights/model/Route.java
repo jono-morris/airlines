@@ -1,7 +1,10 @@
 package nz.co.airlines.flights.model;
 
-import java.util.Date;
 
+import java.util.Date;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,18 +21,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.core.style.ToStringCreator;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-
 @Entity
 @Table(name = "route")
-@Builder(builderMethodName = "route")
-@NoArgsConstructor
-@AllArgsConstructor
 public class Route {
 
     @Id
@@ -40,25 +34,27 @@ public class Route {
     @NotEmpty
     private String flightNumber;
     
-    @Builder.Default
-    @Column(name = "departure_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date departureTime = new Date();
-
+    @Column(name = "scheduled_departure_time")
+    @Temporal(TemporalType.TIME)
+    @NotEmpty
+    private Date scheduledDepartureTime;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "route")
+    private Set<Flight> flights;
+    
     @ManyToOne
     @JoinColumn(name = "airline_id")
-    @JsonIgnore
+//    @JsonIgnore
     private Airline operator;
     
     @ManyToOne
     @JoinColumn(name = "origin_id")
-    @JsonIgnore
+//    @JsonIgnore
     private Airport origin;
     
     @ManyToOne
     @JoinColumn(name = "destination_id")
-    @JsonIgnore
+//    @JsonIgnore
     private Airport destination;
     
     public Integer getId() {
@@ -70,7 +66,7 @@ public class Route {
     }
 
     public Date getDepartureTime() {
-        return departureTime;
+        return scheduledDepartureTime;
     }
 
     public Airline getOperator() {
@@ -85,6 +81,22 @@ public class Route {
         return destination;
     }
     
+//    protected Set<Flight> getFlightsInternal() {
+//        if (this.flights == null) {
+//            this.flights = new HashSet<>();
+//        }
+//        return this.flights;
+//    }
+//    
+//    public List<Flight> getFlights() {
+//        final List<Flight> sortedFlights = new ArrayList<>();
+//        PropertyComparator.sort(sortedFlights, new MutableSortDefinition("departureDate", true, true));
+//        return Collections.unmodifiableList(sortedFlights);
+//    }
+//    
+//    public void addFlight(Flight flight) {
+//        getFlightsInternal().add(flight);
+//    }
     
     @Override
     public String toString() {

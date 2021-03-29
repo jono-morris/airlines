@@ -10,9 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "flight")
@@ -24,13 +24,19 @@ public class Flight {
     
     @ManyToOne
     @JoinColumn(name = "route_id")
-    @JsonIgnore
     private Route route;    
     
-    @Column(name = "code")
+    @Column(name = "departure_date")
+    @Temporal(TemporalType.DATE)
+//    @JsonFormat(pattern = "yyyy-MM-dd")
     @NotEmpty
     private Date departureDate;
 
+    @Column(name = "departure_time")
+    @Temporal(TemporalType.TIME)
+    @NotEmpty
+    private Date departureTime;
+    
     public Integer getId() {
         return id;
     }
@@ -41,6 +47,10 @@ public class Flight {
 
     public Date getDepartureDate() {
         return departureDate;
+    }
+    
+    public Date getDetaptureTime() {
+        return departureTime;
     }
     
 }

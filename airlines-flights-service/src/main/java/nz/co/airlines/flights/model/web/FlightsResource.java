@@ -1,5 +1,6 @@
 package nz.co.airlines.flights.model.web;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,10 +21,17 @@ import nz.co.airlines.flights.model.RouteRepository;
 @Timed("airlines.flight")
 public class FlightsResource {
     
-    private final RouteRepository routeRespostory;
+    private final RouteRepository routeRepository;
+    
+    private final FlightRepository flightRespostory;
 
-    @GetMapping(value = "/{routeId}")
-    public Optional<Route> findFlight(@PathVariable("routeId") int routeId) {
-        return routeRespostory.findById(routeId);
+    @GetMapping(value = "/")
+    public List<Route> findAll() {
+        return routeRepository.findAll();
     }
+    
+//    @GetMapping(value = "/{flightnum}")
+//    public Optional<Route> findFlight(@PathVariable("flightnum") int flightnum) {
+//        return routeRepostory.findAll(flightnum);
+//    }
 }
