@@ -1,7 +1,7 @@
 
-DROP DATABASE airlines;
+--DROP DATABASE airlines;
 CREATE DATABASE IF NOT EXISTS airlines;
---GRANT ALL PRIVILEGES ON airlines.* TO air@localhost IDENTIFIED BY 'air';
+GRANT ALL PRIVILEGES ON airlines.* TO air@localhost IDENTIFIED BY 'air';
 
 USE airlines;
 
@@ -35,7 +35,6 @@ CREATE TABLE IF NOT EXISTS route (
 CREATE TABLE if NOT EXISTS flight (
    id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
    route_id INT(4) UNSIGNED NOT NULL,
-   departure_date DATE,
-   departure_time TIME,
+   departure_date_time DATETIME NOT NULL,
    FOREIGN KEY (route_id) REFERENCES route(id)
 ) engine=InnoDB;

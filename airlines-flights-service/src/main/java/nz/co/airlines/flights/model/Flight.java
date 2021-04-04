@@ -28,16 +28,10 @@ public class Flight {
     @JoinColumn(name = "route_id")
     private Route route;    
     
-    @Column(name = "departure_date")
-    @Temporal(TemporalType.DATE)
-//    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "departureDateTime", columnDefinition="DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
     @NotEmpty
-    private Date departureDate;
-
-    @Column(name = "departure_time")
-    @Temporal(TemporalType.TIME)
-    @NotEmpty
-    private Date departureTime;
+    private Date departureDateTime;
     
     public Integer getId() {
         return id;
@@ -46,13 +40,9 @@ public class Flight {
     public Route getRoute() {
         return route;
     }
-
-    public Date getDepartureDate() {
-        return departureDate;
-    }
     
-    public Date getDepartureTime() {
-        return departureTime;
+    public Date getDepartureDateTime() {
+        return departureDateTime;
     }
     
     @Override
@@ -60,8 +50,7 @@ public class Flight {
         return new ToStringCreator(this)
                 .append("id", this.getId())
                 .append("route", this.getRoute())
-                .append("departure_date", this.getDepartureDate())
-                .append("departure_time", this.getDepartureTime())
+                .append("departure_time", this.getDepartureDateTime())
                 .toString();
     }
 }

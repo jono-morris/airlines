@@ -1,8 +1,16 @@
 package nz.co.airlines.flights.model.web;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,9 +36,10 @@ public class FlightsResource {
         return flightRespostory.findAll();
     }
     
-//    @GetMapping(value = "/")
-//    public List<Route> findAll() {
-//        return routeRepository.findAll();
-//    }
-    
+    @GetMapping(value = "/datetime/{departureDateTime}") 
+    public List<Flight> findForDate(@PathVariable("departureDateTime")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime departureDateTime) {
+        ZonedDateTime zdt = departureDateTime.atZone(ZoneId.systemDefault());
+        return flightRespostory.findForDate(Date.from(zdt.toInstant()));
+    }
 }
