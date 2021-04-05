@@ -1,7 +1,5 @@
 package nz.co.airlines.flights.model.web;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -41,5 +39,19 @@ public class FlightsResource {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime departureDateTime) {
         ZonedDateTime zdt = departureDateTime.atZone(ZoneId.systemDefault());
         return flightRespostory.findForDate(Date.from(zdt.toInstant()));
+    }
+    
+    /**
+     * All flights from a given origin after a given date and time.
+     * @param origin the airport the flights leaves from
+     * @param departureDateTime the date and time to list flights from 
+     * @return the list of scheduled flights departing from the origin
+     */
+    @GetMapping(value = "/origin/{origin}/datetime/{departureDateTime}") 
+    public List<Flight> findDepartingForDate(
+            @PathVariable("origin") String origin,
+            @PathVariable("departureDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime departureDateTime) {
+        ZonedDateTime zdt = departureDateTime.atZone(ZoneId.systemDefault());
+        return flightRespostory.findDepartingFromOriginAndDate(origin, Date.from(zdt.toInstant()));
     }
 }

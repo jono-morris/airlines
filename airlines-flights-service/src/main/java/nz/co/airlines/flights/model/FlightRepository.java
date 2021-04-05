@@ -11,5 +11,13 @@ public interface FlightRepository extends JpaRepository<Flight, Integer> {
     
     @Query("From Flight flight WHERE flight.departureDateTime > :departureDateTime")
     List<Flight> findForDate(@Param("departureDateTime") Date departureDateTime);
-}
 
+    @Query("From Flight flight " +
+           "inner join flight.route as route " +
+           "inner join route.origin as origin " +
+           "WHERE flight.departureDateTime > :departureDateTime " +
+           "AND origin.code = :origin")
+    List<Flight> findDepartingFromOriginAndDate(
+            @Param("origin") String origin,
+            @Param("departureDateTime") Date departureDateTime);
+}

@@ -27,6 +27,8 @@ import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "route")
 public class Route {
@@ -50,17 +52,14 @@ public class Route {
     
     @ManyToOne
     @JoinColumn(name = "airline_id")
-//    @JsonIgnore
     private Airline operator;
     
     @ManyToOne
     @JoinColumn(name = "origin_id")
-//    @JsonIgnore
     private Airport origin;
     
     @ManyToOne
     @JoinColumn(name = "destination_id")
-//    @JsonIgnore
     private Airport destination;
     
     public Integer getId() {
