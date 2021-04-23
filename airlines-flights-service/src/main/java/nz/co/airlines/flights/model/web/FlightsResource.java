@@ -16,7 +16,6 @@ import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import nz.co.airlines.flights.model.Flight;
 import nz.co.airlines.flights.model.FlightRepository;
-import nz.co.airlines.flights.model.RouteRepository;
 
 @RequestMapping("/flights")
 @RestController
@@ -24,8 +23,6 @@ import nz.co.airlines.flights.model.RouteRepository;
 //@Slf4js
 @Timed("airlines.flight")
 public class FlightsResource {
-    
-    private final RouteRepository routeRepository;
     
     private final FlightRepository flightRespostory;
 
@@ -42,7 +39,7 @@ public class FlightsResource {
     }
     
     /**
-     * All flights from a given origin after a given date and time.
+     * All flights departing from a given origin after a given date and time.
      * @param origin the airport the flights leaves from
      * @param departureDateTime the date and time to list flights from 
      * @return the list of scheduled flights departing from the origin
@@ -53,5 +50,12 @@ public class FlightsResource {
             @PathVariable("departureDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime departureDateTime) {
         ZonedDateTime zdt = departureDateTime.atZone(ZoneId.systemDefault());
         return flightRespostory.findDepartingFromOriginAndDate(origin, Date.from(zdt.toInstant()));
+    }
+    
+    @GetMapping(value = "/origin/{origin}/airline/{airline}")
+    public List<Flight> findDepartingforAirline(
+            @PathVariable("origin") String origin,
+            @PathVariable("airline") String airline) {
+        return flightRespostory.findDepartingFromOriginForAirline(origin, airline);
     }
 }

@@ -20,4 +20,15 @@ public interface FlightRepository extends JpaRepository<Flight, Integer> {
     List<Flight> findDepartingFromOriginAndDate(
             @Param("origin") String origin,
             @Param("departureDateTime") Date departureDateTime);
+    
+    
+    @Query("From Flight flight " +
+            "inner join flight.route as route " +
+            "inner join route.origin as origin " +
+            "inner join route.operator as operator " +
+            "where origin.code = :origin " + 
+            "and operator.code = :operator")    
+    List<Flight> findDepartingFromOriginForAirline(
+            @Param("origin") String origin,
+            @Param("operator") String airline);
 }
