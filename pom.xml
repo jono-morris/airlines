@@ -20,12 +20,7 @@
         <module>airlines-discovery-server</module>
 		<module>airlines-config-server</module>
 		<module>airlines-flights-service</module>
-        <!-- 
-        <module>spring-petclinic-admin-server</module>
-        <module>spring-petclinic-vets-service</module>
-        <module>spring-petclinic-visits-service</module>
-        <module>spring-petclinic-api-gateway</module>
-         -->
+		<module>airlines-ticket-service</module>
     </modules>
 
     <properties>
