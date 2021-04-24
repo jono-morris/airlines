@@ -1,11 +1,19 @@
 package nz.co.airlines.ticket.model;
 
+import java.math.BigDecimal;
+import java.util.Currency;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
@@ -16,27 +24,34 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @Column(name = "title")
+    @Column(name = "dateOfIssue", columnDefinition="DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
     @NotEmpty
-    private String title;
+    private Date dateOfIssue;
     
-    @Column(name = "surname")
+    @Column(name = "currency")
     @NotEmpty
-    private String surname;
+    private Currency currency;
     
-    @Column(name = "initial")
+    @Column(name = "fare")
     @NotEmpty
-    private char initial;
+    private BigDecimal fare;
 
-    public String getTitle() {
-        return title;
+    @ManyToOne
+    @JoinColumn(name = "passenger_id")
+    private Passenger passenger;    
+    
+    public Date getDateOfIssue() {
+        return dateOfIssue;
     }
 
-    public String getSurname() {
-        return surname;
+    public Currency getCurrency() {
+        return currency;
     }
 
-    public char getInitial() {
-        return initial;
+    public BigDecimal getFare() {
+        return fare;
     }
+    
+    
 }
