@@ -24,7 +24,7 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @Column(name = "dateOfIssue", columnDefinition="DATETIME")
+    @Column(name = "date_of_issue", columnDefinition="DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     @NotEmpty
     private Date dateOfIssue;
