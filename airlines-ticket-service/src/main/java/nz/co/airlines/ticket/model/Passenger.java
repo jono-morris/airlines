@@ -12,8 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
-import nz.co.airlines.flights.model.Flight;
-
 @Entity
 @Table(name = "passenger")
 public class Passenger {
@@ -30,13 +28,13 @@ public class Passenger {
     @NotEmpty
     private String surname;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "passenger")
-    private Set<Ticket> tickets;
-    
     @Column(name = "initial")
     @NotEmpty
     private char initial;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "passenger_id")
+    private Set<Ticket> tickets;
+    
     public String getTitle() {
         return title;
     }

@@ -24,14 +24,14 @@ public class Flight {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @ManyToOne
-    @JoinColumn(name = "route_id")
-    private Route route;    
-    
     @Column(name = "departureDateTime", columnDefinition="DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     @NotEmpty
     private Date departureDateTime;
+
+    @ManyToOne
+    @JoinColumn(name = "route_id")
+    private Route route;    
     
     public Integer getId() {
         return id;
