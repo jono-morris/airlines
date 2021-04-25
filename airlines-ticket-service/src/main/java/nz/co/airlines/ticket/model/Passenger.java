@@ -32,8 +32,12 @@ public class Passenger {
     @NotEmpty
     private char initial;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "passenger_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "passenger")
     private Set<Ticket> tickets;
+    
+    public Integer getId() {
+        return id;
+    }
     
     public String getTitle() {
         return title;

@@ -41,6 +41,10 @@ public class Ticket {
     @JoinColumn(name = "passenger_id")
     private Passenger passenger;    
     
+    public Integer getId() {
+        return id;
+    }
+    
     public Date getDateOfIssue() {
         return dateOfIssue;
     }
