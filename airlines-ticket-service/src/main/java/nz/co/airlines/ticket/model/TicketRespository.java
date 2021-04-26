@@ -9,9 +9,9 @@ import org.springframework.data.repository.query.Param;
 public interface TicketRespository extends JpaRepository <Ticket, Integer> {
 
     @Query("From Ticket ticket " +
-           "inner join ticket.passenger passenger " +
+           "inner join ticket.passenger as passenger " +
            "where passenger.id = :passengerId")
     List<Ticket> findPassengerTickets(
-            @Param("passengerId") String passengerId);
+            @Param("passengerId") Integer passengerId);
     
-}
+}   

@@ -18,7 +18,7 @@ import nz.co.airlines.ticket.model.TicketRespository;
 @Timed("airlines.ticket")
 public class TicketResource {
 
-    private TicketRespository ticketRepository;
+    private final TicketRespository ticketRepository;
     
     @GetMapping(value = "/")
     public List<Ticket> findAll() {
@@ -27,7 +27,7 @@ public class TicketResource {
     
     @GetMapping(value = "/passenger/{passengerId}")
     public List<Ticket> getPassengerTickets(
-            @PathVariable("passengerId") String passengerId) {
+            @PathVariable("passengerId") Integer passengerId) {
         return ticketRepository.findPassengerTickets(passengerId);
     }
     
