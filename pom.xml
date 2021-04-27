@@ -21,6 +21,7 @@
 		<module>airlines-config-server</module>
 		<module>airlines-flights-service</module>
 		<module>airlines-ticket-service</module>
+		<module>airlines-aircraft-service</module>
     </modules>
 
     <properties>

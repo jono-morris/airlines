@@ -21,6 +21,10 @@ public class BoardingPass {
     @Column(name = "flight_id")
     @NotEmpty
     private Integer flightId;
+
+    @Column(name = "seat_id")
+    @NotEmpty
+    private Integer seatId;
     
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
