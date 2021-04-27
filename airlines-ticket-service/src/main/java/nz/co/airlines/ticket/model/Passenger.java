@@ -20,6 +20,9 @@ public class Passenger {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "passenger")
+    private Set<Ticket> tickets;
+    
     @Column(name = "title")
     @NotEmpty
     private String title;
@@ -32,9 +35,6 @@ public class Passenger {
     @NotEmpty
     private char initial;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "passenger")
-    private Set<Ticket> tickets;
-    
     public Integer getId() {
         return id;
     }

@@ -1,5 +1,7 @@
 package nz.co.airlines.aircraft.model;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +25,7 @@ public class Aircraft {
     private Integer flightId;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "aircraft")
-    private Seat seat;
+    private Set<Seat> seats;
     
     @Column(name = "registration_number")
     @NotEmpty

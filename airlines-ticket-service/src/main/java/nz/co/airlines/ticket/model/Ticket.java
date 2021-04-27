@@ -24,6 +24,11 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
+    @ManyToOne
+    @JoinColumn(name = "passenger_id")
+    private Passenger passenger;    
+    
+    
     @Column(name = "date_of_issue", columnDefinition="DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     @NotEmpty
@@ -37,10 +42,6 @@ public class Ticket {
     @NotEmpty
     private BigDecimal fare;
 
-    @ManyToOne
-    @JoinColumn(name = "passenger_id")
-    private Passenger passenger;    
-    
     public Integer getId() {
         return id;
     }
