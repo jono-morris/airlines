@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "seat")
 public class Seat {
@@ -17,10 +19,6 @@ public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
-    @Column(name = "number")
-    @NotEmpty
-    private String number;
 
     @Column(name = "boarding_pass_id")
     @NotEmpty
@@ -28,7 +26,12 @@ public class Seat {
     
     @ManyToOne
     @JoinColumn(name = "aircraft_id")
+    @JsonIgnore
     private Aircraft aircraft;
+    
+    @Column(name = "number")
+    @NotEmpty
+    private String number;
 
     public Integer getId() {
         return id;
@@ -40,5 +43,9 @@ public class Seat {
 
     public Integer getBoardingPassId() {
         return boardingPassId;
+    }
+    
+    public Aircraft getAircraft() {
+        return aircraft;
     }
 }

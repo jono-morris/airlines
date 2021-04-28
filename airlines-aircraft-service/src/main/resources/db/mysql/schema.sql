@@ -16,9 +16,8 @@ CREATE TABLE IF NOT EXISTS aircraft (
 
 CREATE TABLE IF NOT EXISTS seat (
   id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  boarding_pass_id INT(4) NOT NULL,
-  aircraft_id INT(4) UNSIGNED NOT NULL,
+  boarding_pass_id INT(4),
   number VARCHAR(5) NOT NULL,
-  FOREIGN KEY (aircraft_id) references aircraft(id),
-  INDEX(boarding_pass_id)
+  aircraft_id INT(4) UNSIGNED NOT NULL,
+  FOREIGN KEY (aircraft_id) REFERENCES aircraft(id)
 ) engine=InnoDB;
