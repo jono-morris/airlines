@@ -17,4 +17,4 @@ INSERT IGNORE INTO seat VALUES (7,  7,    "1A", 7);
 INSERT IGNORE INTO seat VALUES (8,  null, "1A", 8);
 INSERT IGNORE INTO seat VALUES (9,  null, "1B", 8);
 INSERT IGNORE INTO seat VALUES (10, null, "1C", 8);
-INSERT IGNORE INTO seat VALUES (11, 8,    "1D", 8);
+--INSERT IGNORE INTO seat VALUES (11, 8,    "1D", 8);
