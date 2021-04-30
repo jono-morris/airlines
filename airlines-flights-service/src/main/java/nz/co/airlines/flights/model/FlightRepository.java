@@ -9,26 +9,15 @@ import org.springframework.data.repository.query.Param;
 
 public interface FlightRepository extends JpaRepository<Flight, Integer> {
     
-    @Query("From Flight flight WHERE flight.departureDateTime > :departureDateTime")
-    List<Flight> findForDate(@Param("departureDateTime") Date departureDateTime);
-
-    @Query("From Flight flight " +
+    @Query("from Flight flight " +
            "inner join flight.route as route " +
            "inner join route.origin as origin " +
-           "WHERE flight.departureDateTime > :departureDateTime " +
-           "AND origin.code = :origin")
-    List<Flight> findDepartingFromOriginAndDate(
-            @Param("origin") String origin,
-            @Param("departureDateTime") Date departureDateTime);
-    
-    
-    @Query("From Flight flight " +
-            "inner join flight.route as route " +
-            "inner join route.origin as origin " +
-            "inner join route.operator as operator " +
-            "where origin.code = :origin " + 
-            "and operator.code = :operator")    
+           "inner join route.destination as destination " +
+           "where origin.code = :origin " + 
+           "and destination.code = :destination " +
+           "and flight.departureDate = :departureDate")    
     List<Flight> findDepartingFromOriginForAirline(
             @Param("origin") String origin,
-            @Param("operator") String airline);
+            @Param("destination") String destination,
+            @Param("departureDate") Date departureDate);
 }

@@ -1,8 +1,7 @@
 package nz.co.airlines.flights.model.web;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -31,31 +30,16 @@ public class FlightsResource {
         return flightRespostory.findAll();
     }
     
-    @GetMapping(value = "/datetime/{departureDateTime}") 
-    public List<Flight> findForDate(@PathVariable("departureDateTime")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime departureDateTime) {
-        ZonedDateTime zdt = departureDateTime.atZone(ZoneId.systemDefault());
-        return flightRespostory.findForDate(Date.from(zdt.toInstant()));
-    }
-    
-    /**
-     * All flights departing from a given origin after a given date and time.
-     * @param origin the airport the flights leaves from
-     * @param departureDateTime the date and time to list flights from 
-     * @return the list of scheduled flights departing from the origin
-     */
-    @GetMapping(value = "/origin/{origin}/datetime/{departureDateTime}") 
-    public List<Flight> findDepartingForDate(
+    @GetMapping(value = "/origin/{origin}/destination/{destination}/date/{departureDate}") 
+    public List<Flight> findDepartingFromOriginForAirline(
             @PathVariable("origin") String origin,
-            @PathVariable("departureDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime departureDateTime) {
-        ZonedDateTime zdt = departureDateTime.atZone(ZoneId.systemDefault());
-        return flightRespostory.findDepartingFromOriginAndDate(origin, Date.from(zdt.toInstant()));
-    }
-    
-    @GetMapping(value = "/origin/{origin}/airline/{airline}")
-    public List<Flight> findDepartingforAirline(
-            @PathVariable("origin") String origin,
-            @PathVariable("airline") String airline) {
-        return flightRespostory.findDepartingFromOriginForAirline(origin, airline);
-    }
+            @PathVariable("destination") String destination,
+            @PathVariable("departureDate")
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate departureDate) {
+        
+        return flightRespostory.findDepartingFromOriginForAirline(
+                origin, 
+                destination, 
+                Date.from(departureDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+    }        
 }
