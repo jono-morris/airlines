@@ -16,6 +16,8 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.core.style.ToStringCreator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "flight")
 public class Flight {
@@ -23,15 +25,20 @@ public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
-    @Column(name = "departureDateTime", columnDefinition="DATETIME")
-    @Temporal(TemporalType.TIMESTAMP)
-    @NotEmpty
-    private Date departureDateTime;
 
     @ManyToOne
     @JoinColumn(name = "route_id")
-    private Route route;    
+    @JsonIgnore
+    private Route route; 
+    
+    @Column(name = "departure_date")
+    @Temporal(TemporalType.DATE)
+    @NotEmpty
+    private Date departureDate;
+
+    @Column(name = "departure_time")
+    @Temporal(TemporalType.TIME)
+    private Date departureTime;
     
     public Integer getId() {
         return id;
@@ -41,8 +48,12 @@ public class Flight {
         return route;
     }
     
-    public Date getDepartureDateTime() {
-        return departureDateTime;
+    public Date getDepartureDate() {
+        return departureDate;
+    }
+
+    public Date getDepartureTime() {
+        return departureTime;
     }
     
     @Override
@@ -50,7 +61,8 @@ public class Flight {
         return new ToStringCreator(this)
                 .append("id", this.getId())
                 .append("route", this.getRoute())
-                .append("departure_time", this.getDepartureDateTime())
+                .append("departure_date", this.getDepartureDate())
+                .append("departure_time", this.getDepartureTime())
                 .toString();
     }
 }

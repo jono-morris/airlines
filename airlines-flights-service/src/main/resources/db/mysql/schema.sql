@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS route (
 CREATE TABLE if NOT EXISTS flight (
    id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
    route_id INT(4) UNSIGNED NOT NULL,
-   departure_date_time DATETIME NOT NULL,
+   departure_date DATETIME NOT NULL,
+   departure_time TIME,
    FOREIGN KEY (route_id) REFERENCES route(id)
 ) engine=InnoDB;
