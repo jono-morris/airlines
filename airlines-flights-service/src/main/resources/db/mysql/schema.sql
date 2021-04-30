@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS route (
 
 CREATE TABLE if NOT EXISTS flight (
    id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+   aircraft_id INT(4) UNSIGNED NOT NULL,
    route_id INT(4) UNSIGNED NOT NULL,
    departure_date DATETIME NOT NULL,
    departure_time TIME,

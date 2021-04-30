@@ -31,6 +31,10 @@ public class Flight {
     @JsonIgnore
     private Route route; 
     
+    @Column(name = "aircraft_id")
+    @NotEmpty
+    private Integer aircraftId;
+    
     @Column(name = "departure_date")
     @Temporal(TemporalType.DATE)
     @NotEmpty
@@ -44,6 +48,10 @@ public class Flight {
         return id;
     }
 
+    public Integer getAircraftId() {
+        return aircraftId;
+    }
+    
     public Route getRoute() {
         return route;
     }
