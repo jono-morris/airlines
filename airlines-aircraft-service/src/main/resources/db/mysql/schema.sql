@@ -7,6 +7,7 @@ USE aircraft;
 
 CREATE TABLE IF NOT EXISTS aircraft (
   id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  free_seats INT(3) NOT NULL,
   flight_id INT(4) NOT NULL,
   registration_number VARCHAR(10),
   aircraft_type VARCHAR(40),

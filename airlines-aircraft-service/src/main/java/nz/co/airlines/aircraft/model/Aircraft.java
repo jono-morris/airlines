@@ -32,8 +32,11 @@ public class Aircraft {
     @NotEmpty
     private Integer flightId;
     
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "aircraft")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "aircraft")
     private Set<Seat> seats;
+    
+    @Column(name = "free_seats")
+    private Integer freeSeats;
     
     @Column(name = "registration_number")
     @NotEmpty
@@ -51,6 +54,10 @@ public class Aircraft {
         return id;
     }
 
+    public   Integer freeSeats() {
+        return freeSeats;
+    }
+    
     public String getRegistrationNumber() {
         return registrationNumber;
     }
