@@ -1,6 +1,6 @@
 package nz.co.airlines.ticket.model.web;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,15 +20,10 @@ public class TicketResource {
 
     private final TicketRespository ticketRepository;
     
-    @GetMapping(value = "/")
-    public List<Ticket> findAll() {
-        return ticketRepository.findAll();
+    @GetMapping(value = "/id/{ticketId}")
+    public Optional<Ticket> findById(
+            @PathVariable("ticketId") Integer ticketId) {
+        
+        return ticketRepository.findById(ticketId);
     }
-    
-    @GetMapping(value = "/passenger/{passengerId}")
-    public List<Ticket> getPassengerTickets(
-            @PathVariable("passengerId") Integer passengerId) {
-        return ticketRepository.findPassengerTickets(passengerId);
-    }
-    
 }

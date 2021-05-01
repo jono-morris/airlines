@@ -27,7 +27,7 @@ public class SeatResource {
         return seatRepository.findByBoardingPassId(boardingPassId);
     }
     
-    @GetMapping(value = "/seatid/{seatId}")
+    @GetMapping(value = "/id/{seatId}")
     public Optional<Seat> findById(
             @PathVariable("seatId") Integer seatId) {
         
