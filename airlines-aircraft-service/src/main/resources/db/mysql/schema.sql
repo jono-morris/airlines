@@ -20,5 +20,6 @@ CREATE TABLE IF NOT EXISTS seat (
   boarding_pass_id INT(4),
   number VARCHAR(5) NOT NULL,
   aircraft_id INT(4) UNSIGNED NOT NULL,
-  FOREIGN KEY (aircraft_id) REFERENCES aircraft(id)
+  FOREIGN KEY (aircraft_id) REFERENCES aircraft(id),
+  INDEX(boarding_pass_id)
 ) engine=InnoDB;
