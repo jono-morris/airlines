@@ -1,5 +1,7 @@
 package nz.co.airlines.aircraft.model.web;
 
+import java.util.Optional;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +21,16 @@ public class SeatResource {
     private final SeatRepository seatRepository;
     
     @GetMapping(value = "/boardingpass/{boardingPassId}")
-    public Seat findByBoardingPassId(
+    public Optional<Seat> findByBoardingPassId(
         @PathVariable("boardingPassId") Integer boardingPassId) {
-            return seatRepository.findByBoardingPassId(boardingPassId);
-        }
+        
+        return seatRepository.findByBoardingPassId(boardingPassId);
+    }
+    
+    @GetMapping(value = "/seatid/{seatId}")
+    public Optional<Seat> findById(
+            @PathVariable("seatId") Integer seatId) {
+        
+        return seatRepository.findById(seatId);
+    }
 }
