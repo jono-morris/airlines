@@ -22,6 +22,7 @@
 		<module>airlines-flights-service</module>
 		<module>airlines-ticket-service</module>
 		<module>airlines-aircraft-service</module>
+		<module>airlines-api-gateway</module>
     </modules>
 
     <properties>
