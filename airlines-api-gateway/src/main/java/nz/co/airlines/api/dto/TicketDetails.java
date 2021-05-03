@@ -1,12 +1,11 @@
-package nz.co.airlines.api.boundary.web.api.dto;
+package nz.co.airlines.api.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class BoardingPassDetails {
+public class TicketDetails {
 
     private Integer id = null;
-    
 }
