@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,16 +31,10 @@ public class FlightsResource {
         return flightRespostory.findAll();
     }
     
-    @GetMapping(value = "/origin/{origin}/destination/{destination}/date/{departureDate}") 
-    public List<Flight> findDepartingFromOriginForAirline(
-            @PathVariable("origin") String origin,
-            @PathVariable("destination") String destination,
-            @PathVariable("departureDate")
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate departureDate) {
+    @GetMapping(value = "/flight/{flightId}")
+    public Optional<Flight> findFlightDetailsById(
+            @PathVariable("flightId") int flightId) {
         
-        return flightRespostory.findDepartingFromOriginForAirline(
-                origin, 
-                destination, 
-                Date.from(departureDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
-    }        
+        return flightRespostory.findById(flightId);
+    }
 }

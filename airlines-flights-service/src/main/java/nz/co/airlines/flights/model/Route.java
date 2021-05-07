@@ -28,6 +28,8 @@ import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "route")
 public class Route {
@@ -47,6 +49,7 @@ public class Route {
     private Date scheduledDepartureTime;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "route")
+    @JsonIgnore
     private Set<Flight> flights;
     
     @ManyToOne

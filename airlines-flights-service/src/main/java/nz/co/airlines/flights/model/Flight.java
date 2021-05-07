@@ -16,8 +16,6 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.core.style.ToStringCreator;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "flight")
 public class Flight {
@@ -28,7 +26,6 @@ public class Flight {
 
     @ManyToOne
     @JoinColumn(name = "route_id")
-    @JsonIgnore
     private Route route; 
     
     @Column(name = "aircraft_id")
