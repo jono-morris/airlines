@@ -20,7 +20,7 @@ public class TicketResource {
 
     private final TicketRespository ticketRepository;
     
-    @GetMapping(value = "/id/{ticketId}")
+    @GetMapping(value = "/{ticketId}")
     public Optional<Ticket> findById(
             @PathVariable("ticketId") Integer ticketId) {
         

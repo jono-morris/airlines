@@ -27,7 +27,9 @@ CREATE TABLE IF NOT EXISTS boarding_pass (
   id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   flight_id INT(4) NOT NULL,
   seat_id INT(4) NOT NULL,
+  ticket_id INT(4) UNSIGNED NOT NULL,
   status VARCHAR(30) NOT NULL,
   seat_class VARCHAR(30) NOT NULL,
+  FOREIGN KEY (ticket_id) references ticket(id),
   INDEX (flight_id)
 ) engine=InnoDB;
